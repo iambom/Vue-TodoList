@@ -15,37 +15,34 @@ import TodoList from './components/TodoList.vue';
 import TodoFooter from './components/TodoFooter.vue';
 
 export default {
-  data: function() {
+  data() {
     return {
       todoItems: [],
     }
   },
   methods: {
-    addOnItem : function(todoItem) {
-      var obj = {completed: false, item: todoItem};
+    addOnItem(todoItem) {
+      const obj = {completed: false, item: todoItem};
       localStorage.setItem(todoItem, JSON.stringify(obj));
       this.todoItems.push(obj);
     },
-    removeOnItem: function(todoItem, index) {
-      // 전달 받은 todoItem object의 key를 지워줌 (key = todoItem.item)
+    removeOnItem(todoItem, index) {
       localStorage.removeItem(todoItem.item);
       this.todoItems.splice(index, 1);
     },
-    toggleOnItem: function(todoItem, index) {
-      // 다시 올려 받은 하위 props를 건드리지 말고 현재 컴포넌트의 data에 접근 하는 것이 좋음
-      // todoItem.completed = !todoItem.completed;
+    toggleOnItem(todoItem, index) {
       this.todoItems[index].completed = !this.todoItems[index].completed
       localStorage.removeItem(todoItem.item);
       localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
     },
-    clearAllItems: function () {
+    clearAllItems() {
       localStorage.clear();
       this.todoItems = [];
     },
   },
-  created: function() {
+  created() {
     if(localStorage.length > 0) {
-      for (var i = 0; i < localStorage.length; i++) {
+      for (let i = 0; i < localStorage.length; i++) {
         if(localStorage.key(i) !== 'loglevel:webpack-dev-server') {
           console.log(JSON.parse(localStorage.getItem(localStorage.key(i))));
           this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))))
@@ -54,11 +51,10 @@ export default {
     }
   },
   components: {
-    'TodoHeader' : TodoHeader,
-    'TodoInput' : TodoInput,
-    'TodoList' : TodoList,
-    'TodoFooter' : TodoFooter
-
+    TodoHeader,
+    TodoInput,
+    TodoList,
+    TodoFooter
   }
 }
 </script>
