@@ -1,10 +1,8 @@
 <template>
   <div class="inputBox shadow">
     <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
-    <!-- <button v-on:click="addTodo">add</button> -->
     <span class="addContainer" v-on:click="addTodo"><i class="fas fa-plus addBtn"></i></span>
     <Modal v-if="showModal" @close="showModal = false">
-      <!-- slot은 특정 컴포넌트의 일부 UI를 재사용 할 수 있는 기능 -->
       <h3 slot="header">
         경고!
         <i class="closeModalBtn fas fa-times" @click="showModal = false"></i>
@@ -27,7 +25,7 @@ export default {
   methods: {
     addTodo() {
       if(this.newTodoItem !== '') {
-        this.$emit('addTodoItem', this.newTodoItem);
+        this.$store.commit('addOnItem', this.newTodoItem);
         this.clearInput();
       } else{
         this.showModal = !this.showModal;
