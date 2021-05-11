@@ -39,6 +39,18 @@ const mutations = {
     state.todoItems[payload.index].completed = !state.todoItems[payload.index].completed;
     localStorage.removeItem(payload.todoItem.item);
     localStorage.setItem(payload.todoItem.item, JSON.stringify(payload.todoItem));
+    
+    if(state.todoItems[payload.index].completed) {
+      const checkedItem = state.todoItems.splice(payload.index, 1);
+      state.todoItems = state.todoItems.concat(checkedItem);
+    }else {
+    
+      const unCheckedItem = state.todoItems[payload.index];
+      state.todoItems.splice(payload.index, 1);
+      state.todoItems.unshift(unCheckedItem);
+      // console.log(unCheckedItem);
+      // state.todoItems.splice(payload.index, 1);
+    }
   },
 
   clearAllItems(state) {
