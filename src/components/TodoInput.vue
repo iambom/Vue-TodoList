@@ -15,6 +15,8 @@
 
 <script>
 import Modal from './common/Modal.vue';
+import { mapGetters } from 'vuex';
+
 export default {
   data() {
     return {
@@ -25,7 +27,11 @@ export default {
   methods: {
     addTodo() {
       if(this.newTodoItem !== '') {
-        this.$store.commit('addOnItem', this.newTodoItem);
+        const newObj = {
+          value: this.newTodoItem,
+          num: this.storedTodoItems.length + 1
+        };
+        this.$store.commit('addOnItem', newObj);
         this.clearInput();
       } else{
         this.showModal = !this.showModal;
@@ -34,6 +40,9 @@ export default {
     clearInput() {
       this.newTodoItem = '';
     },
+  },
+  computed: {
+    ...mapGetters(['storedTodoItems'])
   },
   components: {
     Modal,

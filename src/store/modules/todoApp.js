@@ -9,7 +9,9 @@ const storage = {
         }
       }
     }
-    return arr;
+    arr.sort((a, b) => {return a.num - b.num}).sort((a, b) => {return a.completed - b.completed});
+    
+    return arr
   },
 };
 
@@ -25,8 +27,8 @@ const getters = {
 
 const mutations = {
   addOnItem(state, todoItem) {
-    const obj = {completed: false, item: todoItem};
-    localStorage.setItem(todoItem, JSON.stringify(obj));
+    const obj = {completed: false, item: todoItem.value, num: todoItem.num};
+    localStorage.setItem(todoItem.value, JSON.stringify(obj));
     state.todoItems.push(obj);
   },
 
@@ -40,17 +42,8 @@ const mutations = {
     localStorage.removeItem(payload.todoItem.item);
     localStorage.setItem(payload.todoItem.item, JSON.stringify(payload.todoItem));
     
-    if(state.todoItems[payload.index].completed) {
-      const checkedItem = state.todoItems.splice(payload.index, 1);
-      state.todoItems = state.todoItems.concat(checkedItem);
-    }else {
-    
-      const unCheckedItem = state.todoItems[payload.index];
-      state.todoItems.splice(payload.index, 1);
-      state.todoItems.unshift(unCheckedItem);
-      // console.log(unCheckedItem);
-      // state.todoItems.splice(payload.index, 1);
-    }
+    const checkedItem = state.todoItems.splice(payload.index, 1);
+    state.todoItems = state.todoItems.concat(checkedItem).sort((a,b) => a.num - b.num).sort((a, b) => a.completed - b.completed);
   },
 
   clearAllItems(state) {
