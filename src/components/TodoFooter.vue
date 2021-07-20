@@ -1,6 +1,7 @@
 <template>
   <div class="clearAllContainer">
     <span class="clearAllBtn" v-on:click="clearTodo">Clear All</span>
+    <i class="fab fa-500px"></i>
   </div>
 </template>
 
