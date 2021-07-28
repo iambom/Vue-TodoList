@@ -15,6 +15,9 @@ Vue.js 웹앱 제작 강의에서 구현한 To Do List 클론 코딩입니다.
  
 ### Vuex를 통한 상태 관리 🗂
  - 상태와 로직을 컴포넌트에서 분리하여 컴포넌트 간 통신과 데이터를 효율적으로 전달 및 관리
+
+![vue-todo](https://user-images.githubusercontent.com/57257023/127285772-61fd7b82-16ba-4f54-9df8-c26d61c0af68.gif)
+
  
 ## 📖 프로젝트를 하며 배운 것
  - **화면의 DOM 조작을 위한 Vue Directive**    
